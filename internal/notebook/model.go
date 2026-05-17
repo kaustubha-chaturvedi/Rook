@@ -11,3 +11,5 @@ type Cell struct {
 	Connection string `json:"connection"`
 	Query      string `json:"query"`
 }
+
+const CurrentVersion = 1

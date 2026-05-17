@@ -5,20 +5,23 @@ import (
 	"log"
 
 	"github.com/kaustubha-chaturvedi/Rook/internal/execution"
+	"github.com/kaustubha-chaturvedi/Rook/internal/notebook"
 	"github.com/wailsapp/wails/v3/pkg/application"
 )
 
 func main() {
-	service := execution.NewService()
+	execService := execution.NewService()
+	notebookService := notebook.NewService()
 
 	app := application.New(application.Options{
 		Name:        "Rook",
 		Description: "Production-safe SQL notebook",
 		Services: []application.Service{
-			application.NewService(service),
+			application.NewService(execService),
+			application.NewService(notebookService),
 		},
 		OnShutdown: func() {
-			service.Shutdown(context.Background())
+			execService.Shutdown(context.Background())
 		},
 	})
 
